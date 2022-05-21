@@ -15,7 +15,7 @@ public class GerenciadoraClientesTest_Ex3 {
 	@Test
 	public void testPesquisaCliente() {
 
-		/* ========== Montagem do cen·rio ========== */
+		/* ========== Montagem do cen√°rio ========== */
 		
 		// criando alguns clientes
 		Cliente cliente01 = new Cliente(1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
@@ -28,10 +28,10 @@ public class GerenciadoraClientesTest_Ex3 {
 		
 		gerClientes = new GerenciadoraClientes(clientesDoBanco);
 
-		/* ========== ExecuÁ„o ========== */
+		/* ========== Execu√ß√£p ========== */
 		Cliente cliente = gerClientes.pesquisaCliente(1);
 		
-		/* ========== VerificaÁıes ========== */
+		/* ========== Verific√µes ========== */
 		assertThat(cliente.getId(), is(1));
 		
 	}
@@ -39,7 +39,7 @@ public class GerenciadoraClientesTest_Ex3 {
 	@Test
 	public void testRemoveCliente() {
 
-		/* ========== Montagem do cen·rio ========== */
+		/* ========== Montagem do cen√°rio ========== */
 		
 		// criando alguns clientes
 		Cliente cliente01 = new Cliente(1, "Gustavo Farias", 31, "gugafarias@gmail.com", 1, true);
@@ -52,14 +52,40 @@ public class GerenciadoraClientesTest_Ex3 {
 		
 		gerClientes = new GerenciadoraClientes(clientesDoBanco);
 		
-		/* ========== ExecuÁ„o ========== */
+		/* ========== Execu√ß√µes ========== */
 		boolean clienteRemovido = gerClientes.removeCliente(2);
 		
-		/* ========== VerificaÁıes ========== */
+		/* ========== Verifica√ß√µes ========== */
 		assertThat(clienteRemovido, is(true));
 		assertThat(gerClientes.getClientesDoBanco().size(), is(1));
 		assertNull(gerClientes.pesquisaCliente(2));
 		
+	}
+		
+	    private GerenciadoraContas gerContas;
+		@Test
+		public void testTransferValor() {
+
+			/* ========== Montagem do cen√°rio ========== */
+			
+			// criando alguns clientes
+			ContaCorrente conta01 = new ContaCorrente(1, 200, true);
+			ContaCorrente conta02 = new ContaCorrente(2, 0, true);
+			
+			
+			// inserindo os clientes criados na lista de clientes do banco
+			List<ContaCorrente> contasDoBanco = new ArrayList<>();
+			contasDoBanco.add(conta01);
+			contasDoBanco.add(conta02);
+			
+			gerContas = new GerenciadoraContas(contasDoBanco);
+			
+			/* ========== Execu√ß√µes ========== */
+			gerContas.transfereValor (1,100,2);
+			
+			/* ========== Verifica√ß√µes ========== */
+			assertThat(conta02.getSaldo(), is(100.0));	
+			assertThat(conta01.getSaldo(), is(100.0));
 	}
 	
 }
